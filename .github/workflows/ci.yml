@@ -1,0 +1,68 @@
+name: Github CI
+
+on:
+  pull_request:
+    branches: [main, master]
+  push:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          extensions: mbstring, pdo_sqlite, curl, intl
+          coverage: none
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Cache npm packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-${{ runner.os }}-
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.composer/cache
+          key: composer-${{ runner.os }}-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install Dependencies and Set Up Environment
+        run: make install
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+
+      - name: Run Laravel Tests
+        run: make artisan-test
+
+      #- name: Run Debug Tests
+      #run: |
+      #./vendor/bin/phpunit --log-junit test-results.xml
+      #echo "PHPUnit tests completed with exit code $?"
+
+      - name: Start Laravel Server
+        run: make start & sleep 5
+
+      - name: Cache Playwright installations
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('composer.json') }}
+          restore-keys: playwright-${{ runner.os }}-
+
+      - name: Run Playwright Tests
+        run: make playwright-test
