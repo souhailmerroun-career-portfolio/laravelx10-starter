@@ -64,6 +64,11 @@
                                 @endif
                             </div>
                         </div>
+
+                        @if(config('app.debug') === true)
+                            <button type="button" class="btn btn-info" onclick="fillLoginForm()">Quick Fill</button>
+                            <p class="text-muted">This "Quick Fill" button is for debugging purposes and is only visible in the development environment.</p>
+                        @endif
                     </form>
                 </div>
             </div>

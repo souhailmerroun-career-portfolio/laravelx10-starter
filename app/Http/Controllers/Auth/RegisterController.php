@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Mixpanel;
 
 class RegisterController extends Controller
 {
@@ -25,6 +26,11 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
+     * Mixpanel instance.
+     */
+    protected $mixpanel;
+
+    /**
      * Where to redirect users after registration.
      *
      * @var string
@@ -36,8 +42,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Mixpanel $mixpanel)
     {
+        $this->mixpanel = $mixpanel;
+
         $this->middleware('guest');
     }
 
@@ -64,10 +72,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $this->mixpanel->people->set($user->id, [
+            '$name' => $user->name,
+            '$email' => $user->email,
+            '$created' => $user->created_at->format('Y-m-d\TH:i:s'),
+        ]);
+
+        $this->mixpanel->track('User Registered', [
+            'distinct_id' => $user->id,
+        ]);
+
+        return $user;
     }
 }
