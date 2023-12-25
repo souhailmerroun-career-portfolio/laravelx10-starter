@@ -6,6 +6,7 @@
     "build": "vite build"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
     "@playwright/test": "^1.40.1",
     "@popperjs/core": "^2.11.6",
     "@types/node": "^20.10.5",

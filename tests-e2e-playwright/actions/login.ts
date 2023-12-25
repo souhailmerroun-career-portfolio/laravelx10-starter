@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 
 export const login = async (page) => {
     // Navigate to the login page
-    await page.goto(`${process.env.APP_URL}/login`);
+    await page.goto(`http://localhost:8000/login`);
 
     // Fill out the login form
     await page.fill('input[name="email"]', 'test@example.com');
@@ -12,5 +12,5 @@ export const login = async (page) => {
     await page.click('button[type="submit"]');
 
     // Check the URL to ensure the user is redirected to the dashboard or home page
-    expect(page.url()).toBe(`${process.env.APP_URL}/home`);
+    expect(page.url()).toBe(`http://localhost:8000/home`);
 };
