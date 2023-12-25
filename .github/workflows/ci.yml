@@ -14,6 +14,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # Check for [skip-ci] in the commit message
+      - name: Check for [skip-ci] in commit message
+        id: check-skip
+        run: |
+          echo "::set-output name=skip::$(git log -1 --pretty=%B | grep -q '\\[skip-ci\\]' && echo 'true' || echo 'false')"
+
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
