@@ -29,24 +29,10 @@ This starter kit is designed for new Laravel projects, providing a comprehensive
 
 To start using this Laravelx10 Starter kit, simply run the following commands:
 
-1. **Install Dependencies**
-```bash
-make install
-```
-
-2. **Start the Development Server**
-
-```bash
-make start
-``````
-
-3. **Other commands**
-
-```bash
-make test
-make artisan-test
-make playwright-test
-make playwright-test-ui
-
-... see Makefile
-```
+1. update .env (set sentry, mailtrap, mixpanel)
+2. make install
+3. make start
+4. make test
+3. access /telescope for monitoring
+4. run migration & seed
+5. register & login (using form fillers)
