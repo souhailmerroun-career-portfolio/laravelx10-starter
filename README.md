@@ -9,18 +9,20 @@ This starter kit is designed for new Laravel projects, providing a comprehensive
 -   **Laravel UI with Bootstrap 5 and Auth**: Pre-configured UI with Bootstrap 5 and authentication scaffolding.
 -   **.env.example**: Includes necessary environment variables for quick setup.
 -   **Mailtrap Integration**: Easily configurable for email testing (just change email & password in `.env`).
+-   **Mail Preview Included**:
 -   **Makefile Included**: Simplifies the execution of common tasks.
 -   **Playwright & Laravel Tests Ready**: Pre-setup for end-to-end testing with Playwright and Laravel tests.
 -   **CI Ready with GitHub Actions**: Streamline your CI/CD workflows.
 -   **Heroku Deployment Ready**: Configurations in place for easy deployment to Heroku.
 -   **Sentry Monitoring Ready**: Error tracking and monitoring (just update `.env`).
 -   **Laravel Telescope for Monitoring**: Get insights into server and database performance.
+-   **Laravel Debugbar**:
 
 ## Key Metrics to Watch
 
 -   **Code Coverage**: Assessed using PHPUnit.
 -   **Code Quality**: Evaluated with PHPStan.
--   **Server & Database Performance**: Monitored using Laravel Telescope.
+-   **Server & Database Performance**: Monitored using Laravel Telescope & Laravel Debugbar.
 -   **Web Vitals**: Analyzed using Lighthouse.
 -   **E2E Test Coverage**: Covered by Playwright.
 -   **User Engagement & Retention**: Tracked using Mixpanel.

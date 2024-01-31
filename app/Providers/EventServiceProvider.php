@@ -2,7 +2,13 @@
 
 namespace App\Providers;
 
+use App\Events\PostCreated;
+use App\Events\PostDeleted;
+use App\Events\PostUpdated;
 use App\Listeners\ListenerLoginTrackMixpanel;
+use App\Listeners\PostCreatedListener;
+use App\Listeners\PostDeletedListener;
+use App\Listeners\PostUpdatedListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -21,6 +27,15 @@ class EventServiceProvider extends ServiceProvider
         ],
         Login::class => [
             ListenerLoginTrackMixpanel::class,
+        ],
+        PostCreated::class => [
+            PostCreatedListener::class,
+        ],
+        PostUpdated::class => [
+            PostUpdatedListener::class,
+        ],
+        PostDeleted::class => [
+            PostDeletedListener::class,
         ],
     ];
 
