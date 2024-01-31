@@ -34,5 +34,4 @@ To start using this Laravelx10 Starter kit, simply run the following commands:
 3. make start
 4. make test
 5. access /telescope for monitoring
-6. run migration & seed
-7. register & login (using form fillers)
+6. register & login (using form fillers)
